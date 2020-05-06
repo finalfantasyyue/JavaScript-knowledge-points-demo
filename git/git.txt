@@ -1,0 +1,237 @@
+
+git
+
+创建分支
+git branch 分支名
+
+切换到分支
+git checkout 分支名
+
+创建并切换分支
+git checkout -b 分支名
+
+查看项目的分支们(包括本地和远程) 
+git branch -a
+
+删除本地文件
+rm 文件
+
+删除本地分支
+git branch -d 分支名
+
+删除远程分支 
+git push origin -d/--delete 分支名
+
+查看远端库分支
+git branch -r
+
+拉取远程分支
+git checkout -b 本地分支名 远程分支名  // 本地分支名和远程的最好一样
+
+将创建的分支推到远端去 
+git push origin 分支名 
+
+将文件推到指定的分支
+git push -u origin 分支名
+
+git pull 默认只更新当前分支的代码 
+如果远程主机删除了某个分支，默认情况下，git pull 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止，由于其他人操作了远程主机，导致git pull不知不觉删除了本地分支。
+
+但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。
+git pull -p
+
+git push 不带参数的 git push，默认把当前分支推送到远程相同名字的分支上，称为 simple 方式
+语法
+$ git push <远程主机名> <本地分支名>:<远程分支名>
+$ git push origin master
+上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。
+
+如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。
+
+
+$ git push origin :master
+# 等同于
+$ git push origin --delete/-d master
+上面命令表示删除origin主机的master分支。
+
+git init 初始化一个Git仓库，使用git init命令。
+
+git add  把文件添加到仓库(暂存区)
+
+$ git add readme.txt
+
+git commit 把文件提交到本地仓库
+$ git commit -m "wrote a readme file"  -m后面输入的是本次提交的说明
+
+git status
+git status命令可以让我们时刻掌握仓库当前的状态
+
+git diff
+git diff查看具体修改了什么内容
+
+git log
+git log命令显示从最近到最远的提交日志
+
+git merge 分支名      合并分支，然后git push
+
+
+git reset 当前版本回馈到上一个版本   用HEAD表示当前版本  HEAD^上个版本 HEAD^^上上个版本 当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+git reset --hard HEAD^
+
+cat 读取文件
+$ cat readme.txt
+
+git add . ：他会监控工作区的状态树，使用它会把工作时的所有变化提交到暂存区，包括文件内容修改(modified)以及新文件(new)，但不包括被删除的文件。
+
+git后修改了本地文件，重新还原未修改状态
+
+单个文件 ： git checkout + 文件名
+整个目录 ：git checkout .(这个点要加上的)
+
+分支重命名
+git branch -m oldName newName
+
+//总结
+修改完文件
+git add 文件名
+git commit -m '描述'     修改最近一次的commit提交信息，git commit --amend -m "修改提交信息"
+git pull
+git push
+
+git pull origin dev 这样拉代码快点
+pwd 查看当前路径
+总结：(在主干创建分支，创建前主干git pull一下)
+git checkout -b dev
+git push origin dev  //这样远程仓库中也就创建了一个test分支
+git branch --set-upstream-to=origin/dev   //建立本地到上游（远端）仓的链接 --这样代码才能提交上去
+git branch --unset-upstream master   //取消对master的跟踪
+git add 文件1 文件2  //增加单个文件空格间隔文件名
+或git add . //他会监控工作区的状态树，使用它会把工作时的所有变化提交到暂存区，包括文件内容修改(modified)以及新文件(new)，但不包括被删除的文件
+git status   //查看状态
+git commit -m ‘描述’
+git push    //git push 不带参数的 git push，默认把当前分支推送到远程相同名字的分支上，称为 simple 方式
+
+使用 git branch -a 命令可以查看所有本地分支和远程分支（git branch -r 可以只查看远程分支） 
+发现很多在远程仓库已经删除的分支在本地依然可以看到。
+
+核心命令：
+1. git remote show origin
+
+2. git remote prune origin
+这样就删除了那些远程仓库不存在的分支。
+
+
+sass编译  
+1.嵌套输出方式 nested
+2.展开输出方式 expanded  
+3.紧凑输出方式 compact 
+4.压缩输出方式 compressed
+命令：sass style.scss:style.css --style expanded
+
+压缩js
+node deploy_pc.js –md pc/club_index.js
+node deploy-es67.js -m pc67/platform/index.js 
+
+
+压缩scss
+sass -t compressed -w pc/fund.scss   Mac 压缩并编译
+sass --watch mobile/rebate_detail.scss --style compressed   window
+
+用 git 命令行提交文件时，默认使用 vim 编辑器，基本操作：
+
+按 a, i 或 o 进入编辑模式
+按 ESC 进入操作模式
+在操作模式下，:wq 为写入退出，:q! 不保存退出  
+
+
+关闭php进程
+pkill php-fpm
+然后重启服务
+
+重启nginx：sudo nginx -s reload
+
+
+当前分支更改的内容提交到另一个分支
+git stash save '备注'
+切换到分支  git checkout 分支 
+
+git stash pop // 作用是将git stash栈中最后一个版本取出来
+// 或 可以选择一个你需要的版本执行
+git stash list
+git stash apply stash@{0}
+
+git 撤销操作
+
+
+push之前一般叫撤回，push后，一般叫回滚
+
+文件修改了，没有git add或已经git add
+
+方法一：git checkout 文件名  //撤回修改或提交  git checkout . 撤回所有修改
+方法二：git reset HEAD 文件名
+
+已经git commit
+
+方法一：
+git log
+git reset --hard <commit_id>
+git push origin HEAD --force
+
+方法二：
+git reset --soft HEAD^
+
+这样就成功的撤销了你的commit
+
+注意，仅仅是撤回commit操作，您写的代码仍然保留。
+
+HEAD^的意思是上一个版本，也可以写成HEAD~1
+
+如果你进行了2次commit，想都撤回，可以使用HEAD~2
+
+
+
+git push后
+
+push到远端后发现commit了多余的文件，或者希望能够回退到以前的版本。
+git reset --hard 版本号 //改变本地源码，不仅仅指向变化了，代码也回到了那个版本时的代码
+git reset --soft 版本号 //改变了HEAD的指向，回退到之前的版本，但是保留当前工作区的修改，可以重新提交
+如果此时使用命令：git push origin <分支名>
+会提示本地的版本落后于远端的版本；
+为了覆盖掉远端的版本信息，使远端的仓库也回退到相应的版本，需要加上参数--force
+git push origin <分支名> --force
+
+
+--mixed 
+意思是：不删除工作空间改动代码，撤销commit，并且撤销git add . 操作
+这个为默认参数,git reset --mixed HEAD^ 和 git reset HEAD^ 效果是一样的。
+
+--soft  
+不删除工作空间改动代码，撤销commit，不撤销git add . 
+
+--hard
+删除工作空间改动代码，撤销commit，撤销git add . 
+注意完成这个操作后，就恢复到了上一次的commit状态。
+
+
+顺便说一下，如果commit注释写错了，只是想改一下注释，只需要：
+git commit --amend
+此时会进入默认vim编辑器，修改注释完毕后保存就好了。
+
+
+本地代码上传到github
+在github上新建仓库（Repository）
+本地代码
+git init
+git add .
+git commit -m '注释'
+git remote add origin git@github.com:****.git  (git地址)
+git pull origin master
+git push -u origin master
+
+注：如果github没有ssh公钥,需要在本地新建公钥，然后在github上面新建SSH keys
+cd ~/.ssh
+ls // 查看是否有id_rsa id_rsa.pub
+ssh-keygen  // 新建公钥
+vim id_rsa.pub  // 拷贝
+然后github--> settings --> SSH and GPG keys --> New SSH key
+
