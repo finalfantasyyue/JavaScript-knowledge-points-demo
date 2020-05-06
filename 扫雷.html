@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扫雷</title>
+	<style>
+		html,body{
+			padding:0;
+			margin: 0;
+		}
+		#box{
+			width: 200px;
+			height: 200px;
+			/*border: 1px solid #ddd;*/
+			margin: 0 auto;
+			font-size: 0;
+			border-bottom: 1px solid green;
+			border-right: 1px solid green;
+		}
+		.block{
+			float: left;
+			width:19px;
+			height:19px;
+			font-size: 14px;
+			text-align: center;
+			color: blue;
+			border-left:1px solid green;
+			border-top: 1px solid green;
+		}
+		.isLei{
+			color: red;
+			font-size: 12px;
+			text-align: center;
+		}
+		.xhqIcon{
+			background: url('./pic/xhq.png') no-repeat;
+		}
+		#leiNum{
+			/* position: absolute; */
+			/* top:0; */
+			width: 100px;
+			margin:0 auto;
+			text-align: center;
+			background: #ddd;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		var mineMin = 10,leiNum = 10,mineMap = [];
+		var box = document.createElement('div');
+		var leiDiv = document.createElement('div');
+		box.setAttribute('id','box');
+		leiDiv.setAttribute('id','leiNum');
+		var body = document.body || document.documentElement;
+		body.appendChild(leiDiv);
+		body.appendChild(box);
+
+		leiDiv.innerHTML = leiNum;
+		//取消默认鼠标右键
+		box.oncontextmenu = function(){
+			return false;
+		}
+		box.onmousedown = function(e){
+			var e = e || window.event;
+			console.log(e)
+			if(e.which === 1){
+				clickLeft(e.target);
+			}else if(e.which === 3){
+				clickRight(e.target);
+			}
+		}
+		function init(){
+			var boxEle = document.getElementById('box');
+			for (var i = 0; i < 10; i++) {
+				for (var j = 0; j < 10; j++) {
+					var div = document.createElement('div');
+					div.classList.add('block');
+					div.setAttribute('id',i+'-'+j);
+					mineMap.push({mine:0});
+					boxEle.appendChild(div);
+				}
+			}
+			var block = document.getElementsByClassName('block');
+			while(mineMin){
+				var index = Math.floor(Math.random()*100);
+				if(mineMap[index].mine === 0){
+					mineMap[index].mine = 1;
+					block[index].classList.add('isLei');
+					mineMin --;
+				}
+
+			}
+		}
+		init();
+		function clickLeft(dom){
+			var isLei = document.getElementsByClassName('isLei');
+			function Lei(name){
+				for(var i=0;i<isLei.length;i++){
+					isLei[i].innerHTML = name;
+				}
+			}
+			//如果有小红旗不可点击
+			if(dom.classList.contains('xhqIcon')){
+				return;
+			}
+			//点中雷
+			if(dom && dom.classList.contains('isLei')){
+				Lei('雷');
+				setTimeout(function(){
+					alert('game over');
+					window.location.reload();
+				},800)
+				return;
+			}else{
+				var n = 0;
+				var posArr = dom && dom.getAttribute('id').split('-');
+				var posX = posArr && +posArr[0];  //posArr[0] 取出的是字符串
+				var posY = posArr && +posArr[1];
+				dom && dom.classList.add('num');
+				for(var i=posX-1;i<posX+1;i++){
+					for(var j=posY-1;j<posY+1;j++){
+						var aroundBox = document.getElementById(i+'-'+j);
+						if(aroundBox && aroundBox.classList.contains('isLei')){
+							n++;
+						}
+					}
+				}
+				dom && (dom.innerHTML = n);
+				//box是0就扩散
+				if(n == 0){
+					for(var i=posX-1;i<posX+1;i++){
+						for(var j=posY-1;j<posY+1;j++){
+							var nearBox = document.getElementById(i+'-'+j);
+							if(nearBox && nearBox.length != 0){
+								if(!nearBox.classList.contains('check')){  //check是否点击过
+									nearBox.classList.add('check');
+									clickLeft(nearBox);
+								}
+							}
+						}
+					}
+				}
+			}
+
+		}
+		function clickRight(dom){
+			//如果是数字
+			if(dom.classList.contains('num')){
+				return;
+			}
+			dom.classList.toggle('xhqIcon');
+			if(dom.classList.contains('isLei') && dom.classList.contains('xhqIcon')){
+				leiNum --;
+			}else if(dom.classList.contains('isLei') && !dom.classList.contains('xhqIcon')){
+				leiNum ++;
+			}
+			leiDiv.innerHTML = leiNum;
+			if(leiNum == 0){
+				setTimeout(function(){
+					alert('挑战成功');
+				},800)
+			}
+		}
+	</script>
+</body>
+</html>

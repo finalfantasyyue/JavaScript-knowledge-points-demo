@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>放大镜效果</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        .box1 {
+            position: relative;
+            float: left;
+            width: 350px;
+            height: 350px;
+            margin-right: 10px;
+            border: solid 1px #ddd;
+            background: url('./pic/s1.jpg') no-repeat;
+            box-sizing: border-box;
+        }
+
+        .scale {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            cursor: move;
+            background: rgba(0, 0, 0, .3);
+            display: none;
+        }
+
+        .box2 {
+            position: relative;
+            float: left;
+            width: 350px;
+            height: 350px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: none;
+            z-index: 1;
+        }
+        .box2 img {
+            position: absolute;
+            z-index: 2;
+        }
+        .slider {
+            position: relative;
+            left: 400px;
+            top: 100px;
+            width: 300px;
+            height: 50px;
+            background: #ddd;
+        }
+        .slider .btn{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background: yellow;
+            cursor: move;
+            z-index: 5;
+        }
+        .slider .text {
+            position: absolute;
+            width: 100%;
+            line-height: 50px;
+            text-align: center;
+            z-index: 3;
+        }
+        .slider .bg{
+            position: absolute;
+            height: 50px;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">
+        <div class="scale"></div>
+    </div>
+    <div class="box2">
+        <img src="./pic/b1.jpg" alt="" width="800" height="800">
+    </div>
+    <!-- 查找替换 -->
+    <div class="search">
+        <input type="text" id="searchCon">
+        <input type="text" id="replace">
+        <input type="button" value="查找" id="search">
+    </div>
+    <div class="con">今天天气不错，挺风和日丽的。</div>
+    <!-- 拖动滑块验证 -->
+    <div class="slider">
+        <p class="text">拖动滑块验证</p>
+        <div class="btn"></div>
+        <div class="bg"></div>
+    </div>
+    <script>
+        var x = 1;
+        if(function f(){}){
+            x += typeof(f)
+        }
+        console.log(x)
+        //滑块验证
+        var flag = false;
+        var slider = document.querySelector('.slider');
+        var btn = document.querySelector('.btn');
+        var bg = document.querySelector('.bg');
+        var text = document.querySelector('.text');
+        var sliderW = slider.offsetWidth;
+        var btnW = btn.offsetWidth;
+        btn.onmousedown = function (e) {
+            var e = e || window.event;
+            var btnX = e.clientX;
+            btn.onmousemove = function (e) {
+                var moveX = e.clientX - btnX;
+                if (moveX > 0) {
+                    this.style.left = moveX + 'px';
+                    bg.style.width = moveX + 'px';
+                    bg.style.background = 'green';
+                }
+                if (moveX >= sliderW - btnW) {
+                    flag = true;
+                    text.innerHTML = '通过验证';
+                    text.style.color = '#fff';
+                    btn.onmousemove = null; //清除按钮移动
+                    btn.onmousedown = null;
+                }
+            }
+        }
+        btn.onmouseup = function (e) {
+            btn.onmousemove = null; //清除按钮移动
+            //验证是否通过
+            if (flag) return;
+            this.style.left = 0;
+            bg.style.width = 0;
+        }
+
+        //查找替换 start
+        var searchCon = document.getElementById('searchCon');
+        var replace = document.getElementById('replace');
+        var search = document.getElementById('search');
+        var con = document.querySelector('.con');
+        var conVal = con.innerHTML;
+        search.onclick = function () {
+            var val = searchCon.value;
+            var rep = replace.value;
+            var reg = new RegExp(val, 'g');
+            if (val.length > 0 && rep.length == 0) { //查找
+                if (conVal.indexOf(val) != -1) { //存在查找的内容
+                    con.innerHTML = conVal.split(val).join('<span style="background:red;">' + val + '</span>')
+                } else {
+                    console.log('没有要查找的内容')
+                }
+            } else if (val.length > 0 && rep.length > 0) { //替换
+                con.innerHTML = conVal.replace(reg, rep)
+            }
+        }
+        //查找替换end
+        //放大镜start
+        var box1 = document.querySelector('.box1');
+        var scale = box1.children[0];
+        var box2 = document.querySelector('.box2');
+        var bigImg = box2.children[0];
+        var bigImgW = bigImg.width;
+        var bigImgH = bigImg.height;
+        var drag = false;
+        var evL, evT, box1L, box1T, disX, disY, box1L, scaleL, scaleH, scaleW, scaleH, box1W, box1H;
+
+        function init() {
+            box1.onmouseover = function () {
+                scale.style.display = 'block';
+            }
+            scale.onmousedown = function (e) {
+                box2.style.display = 'block';
+                e = e || window.event;
+                drag = true;
+                evL = e.clientX;
+                evT = e.clientY;
+                scaleL = scale.offsetLeft;
+                scaleT = scale.offsetTop;
+                scaleW = scale.offsetWidth;
+                scaleH = scale.offsetHeight;
+                box1L = box1.offsetLeft;
+                box1T = box1.offsetTop;
+                box1W = box1.offsetWidth;
+                box1H = box1.offsetHeight;
+                disX = evL - scaleL;
+                disY = evT - scaleT;
+            }
+            scale.onmousemove = function (e) {
+                var e = e || window.event;
+                var left = e.clientX - disX;
+                var top = e.clientY - disY;
+                if (drag) {
+                    //设置边界处理，防止移出小图片
+                    if (left < 0) {
+                        left = 0;
+                    } else if (left > box1L + box1W - scaleW) {
+                        left = box1L + box1W - scaleW;
+                    }
+                    if (top < 0) {
+                        top = 0;
+                    } else if (top + scaleH > box1T + box1H) {
+                        top = box1T + box1H - scaleH;
+                    }
+                    scale.style.left = left + 'px';
+                    scale.style.top = top + 'px';
+                    //比值
+                    var percentX = bigImgW / box1W;
+                    var percentY = bigImgH / box1H;
+                    bigImg.style.left = -(percentX * left) + 'px';
+                    bigImg.style.top = -(percentY * top) + 'px';
+                }
+            }
+            scale.onmouseup = function () {
+                drag = false;
+                box2.style.display = 'none';
+                scale.style.display = 'none';
+            }
+        }
+        init();
+    </script>
+</body>
+
+</html>

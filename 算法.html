@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>算法</title>
+</head>
+<body>
+  <script type="text/javascript">
+    /* 出现次数最多的字符串 */
+    var str = 'afdasafasfjk0jfsdsasdfjksfjsa123jfkdsla209fdsakw3fsa'
+    var str3 = 'asafasfjk0jfsdafdsasdfjkssfjsa123jfkdesla209fdsakw3fsa'
+    function strFun(str) {
+      var obj = {}
+      for (var i = 0; i < str.length; i++) {
+        if (!obj[str[i]]) {
+          obj[str[i]] = 1
+        } else {
+          obj[str[i]]++
+        }
+      }
+      return obj
+    }
+    var obj1 = strFun(str)
+    var obj2 = strFun(str3)
+    var arr = [], arr1 = []
+    for (let key in obj2) {
+      if (obj2[key] !== obj1[key]) {
+        console.log(key)
+      }
+    }
+
+    // var script = document.createElement('script')
+    // script.type = 'text/javascript'
+    // script.src = './demo.js'
+    // document.head.appendChild(script)
+    // console.log(obj)
+    // function strCount(str) {
+    //   let obj = {}, arr = []
+    //   let num = 0, code = null
+    //   let len = str.length
+    //   for (let i = 0; i < len; i++) {
+    //     if (!obj[str[i]]) {
+    //       obj[str[i]] = 1
+    //       arr.push(str[i])
+    //     } else {
+    //        obj[str[i]]++
+    //     }
+    //   }
+    //   console.log(obj)
+    //   for (let key in obj) {
+    //     if (obj[key] > num) {
+    //       num = obj[key]
+    //       code = key
+    //     }
+    //   }
+    //   return num +' '+ code
+    // }
+    // console.log(strCount(str))
+
+    // /* 出现次数最多的汉子 */
+    // var characters = '放假骷髅法师范德萨发的方式防守打法bafbak发都发的ferfds是你fds你急发'
+    // function charac(str, code) {
+    //   let num = null
+    //   if (str.includes(code)) {
+    //     document.body.innerHTML = str.split(code).join('<span style="background:red;">' + code + '</span>')
+    //   }
+    // }
+    // console.log(charac(characters, '发的'))
+    /* 两个字符串找不同 */
+  </script>
+</body>
+</html>

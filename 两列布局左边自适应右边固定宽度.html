@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+        }
+        .left {
+            width: 500px;
+            border: 1px yellow solid;
+        }
+
+        .right {
+            flex: 1;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left"></div>
+        <div class="right">556677</div>
+    </div>
+</body>
+<script>
+    var arr = [];
+    var str = 'abcdA123B45dvc88dfs98';
+    console.log(str.replace(/\d/g, ''))
+    console.log(str.replace(/[a-zA-z]/g, ''))
+    console.log(str.replace(/[^0-9]/g, ''))
+    //质数
+    function primeNum(num) {
+        var arr2 = [],
+            n = 0;
+        for (var i = 2; i < num; i++) {
+            var status = 0; //质数
+            for (var j = 2; j < i; j++) {
+                if (i % j == 0) {
+                    status = 1; //非质数
+                    break;
+                }
+            }
+            if (status == 0 && i != 2) {
+                arr.push(i)
+                n++;
+            }
+        }
+        console.log(arr)
+        console.log(n)
+        return arr;
+    }
+    var left = document.querySelector('.left');
+    var right = document.querySelector('.right');
+    left.innerHTML = primeNum(100);
+
+    //字符串出现次数最多的字符及次数
+    var str = 'aaabdcgedffdsafffds';
+
+    function strAndnum(str) {
+        var obj = {},
+            max = 0, //存储字符最多的次数
+            newStr = 0, //存储最多的字符
+            strLen = str.length;
+        for (var i = 0; i < strLen; i++) {
+            var char = str.charAt(i);
+            if (obj[char]) {
+                obj[char]++;
+            } else {
+                obj[char] = 1;
+            }
+        }
+        //max始终储存次数最大的那个
+        for (var key in obj) {
+            if (max < obj[key]) {
+                max = obj[key]
+            }
+        }
+        //根据max找出最多的字符
+        for (var key in obj) {
+            if (obj[key] == max) {
+                newStr = key
+            }
+        }
+        var newObj = {
+            max: `出现次数最多的字符数:${max}`,
+            newStr: `出现次数最多的字符：'${newStr}'`
+        }
+        return newObj;
+    }
+    console.log(strAndnum(str))
+
+    //快速排序
+    var newArr = [1, 2, 4, 8, 2, 39, 321, 5, 9, 7, 2, 8, 13, 22];
+
+    function quickArr(arr) {
+        if (arr.length <= 1) return arr;
+        var left = [],
+            right = [],
+            index = Math.floor(arr.length / 2),
+            mid = arr.splice(index, 1)[0];
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] < mid) {
+                left.push(arr[i])
+            } else {
+                right.push(arr[i])
+            }
+        }
+        return quickArr(left).concat([mid], quickArr(right));
+    }
+    console.log(quickArr(newArr))
+</script>
+
+</html>

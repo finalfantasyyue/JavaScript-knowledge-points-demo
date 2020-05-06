@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>加载多张图片，只有全部加载成功才会显示</title>
+</head>
+<body>
+  <script>
+    // 加载多张图片，只有全部加载成功才会显示
+    function loadImg(src){
+      return new Promise((resolve, reject) => {
+        let img = document.createElement('img');
+        img.src = src
+        img.onload = function() {
+          resolve(img)
+        }
+        img.onerror = function(err) {
+          reject(err)
+        }
+      })
+    }
+    function showImgs(imgs) {
+      imgs.forEach(img => {
+        document.body.appendChild(img)
+      })
+    }
+    Promise.all([
+      loadImg(src1),
+      loadImg(src2),
+      loadImg(src3)
+    ]).then(showImgs)
+    // promise.race()  // 有一张图片加载成功改变状态（既哪张图片先加载出来就显示哪张
+    Promise.race([
+    loadImg(src1),
+      loadImg(src2),
+      loadImg(src3)
+    ]).then(showImgs)
+  </script>
+</body>
+</html>

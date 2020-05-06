@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数组找差异</title>
+</head>
+<body>
+  
+</body>
+<script>
+  let arr = ['aaa','name','ff','age','address','addr','aa','dif']
+  let arr2 = ['ff','age','name','diff','addr','aa','aaa','address','dif']
+  let arr3 = [22,4,23,5,65,88,12,9,31,1,43,120]
+  let newArr = []
+  let num = null;
+  console.log([...arr,...arr2])
+  console.log(Array.from(new Set([...arr,...arr2])).splice(arr2.length-1,1))
+  function unique() {
+    for(let i=0;i<arr.length;i++){
+      for(let j=0;j<arr2.length;j++){
+        if(arr[i] === arr2[j]){
+          arr2.splice(j,1)
+        }
+      }
+    }
+    return arr2
+  }
+  document.body.innerHTML = unique()
+  // 冒泡排序
+  function bubbleSort(arr) {
+    let temp = null;
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = 0; j < arr.length - 1 - i; j++) {
+        num++
+        if (arr[j]>arr[j+1]) {
+          temp = arr[j]
+          arr[j] = arr[j+1]
+          arr[j+1] = temp
+        }
+      }
+    }
+    return arr
+  }
+  // console.log(bubbleSort(arr3))
+  // console.log(num)
+  // 快速排序
+  function quickSort (arr) {
+    if (arr.length <= 1) return arr;
+    let left = []
+    let right = []
+    let index = Math.floor(arr.length / 2)
+    let pivot = arr.splice(index,1)
+    for (let i = 0; i < arr.length; i++) {
+      num ++
+      if (arr[i] < pivot) {
+        left.push(arr[i])
+      } else {
+        right.push(arr[i])
+      }
+    }
+    return quickSort(left).concat(pivot,quickSort(right))
+  }
+  // console.log(quickSort(arr3))
+  // console.log(num)
+  // 选择排序
+  function selectSort(arr) {
+    for (let i=0; i< arr.length; i++) {
+      let max = arr[i];
+      let temp = null;
+      for (let j = 0; j < arr.length - 1; j++) {
+        if (max < arr[j]) {
+          temp = arr[j]
+          arr[j] = max
+          max = temp
+        }
+      }
+      arr[i] = max
+    }
+    return arr
+  }
+  console.log(selectSort(arr3))
+
+  // 二叉树排序
+  function BinaryTree() {
+    // 节点
+    var Node = function(key) {
+      this.key = key // 值
+      this.left = null  // 左节点
+      this.right = null // 右节点
+    }
+    var root = null // 根节点
+    this.insertNode = function(node, newNode) {
+      if (node.key < newNode.key) {
+        if (node.right === null) {
+          node.right = newNode
+        } else {
+          this.insertNode(node.right, newNode)
+        }
+      } else {
+        if (node.left === null) {
+          node.left = newNode
+        } else {
+          this.insertNode(node.left, newNode)
+        }
+      }
+    }
+    this.insert = function(key) {
+      var newNode = new Node(key)
+      if (root === null) {
+        root = newNode
+      } else {
+        this.insertNode(root, newNode)
+      }
+    }
+  }
+  var arr4 = [8,10,1,6,13,17,5]
+  var binaryTree = new BinaryTree()
+  arr4.forEach((item) => {
+    binaryTree.insert(item)
+  })
+
+  // 找出字符串第一个只出现一次得字符 q
+  function oneStr(){
+    var str = 'fdjklafdjkskfqla1kltafdsuak1';
+    var len = str.length;
+    var obj = {}, newArr2 = []
+    for (var i=0; i<len; i++) {
+      if(!obj[str[i]]) {
+        obj[str[i]] = 1
+        newArr2.push(str[i]) // 数组去重
+      } else {
+        obj[str[i]] ++  // 重复出现的次数
+      }
+    }
+    for (var key in obj) {
+      if (obj[key] === 1){
+        console.log(key)
+        // break
+        return key
+      }
+    }
+  }
+  oneStr()
+  console.log(01)
+</script>
+</html>

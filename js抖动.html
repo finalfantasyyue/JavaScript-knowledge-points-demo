@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<style>
+#div1 {
+width: 100px;
+height: 100px;
+position: absolute;
+left: 400px;
+top: 200px;
+background: red;
+}
+</style>
+</head>
+<body>
+<div id="div1"></div>
+<script>
+var div1 = document.querySelector('#div1');
+/*
+* 抖动：
+* */
+var flag = true;
+var count = 100;
+var speed = 5;
+var timer;
+setInterval(function(){
+	var tops = 100,bottoms = 300;
+	timer = setInterval(function(){
+		tops += speed;
+		bottoms -= speed;
+		div1.style.top = (flag?tops:bottoms)+'px';
+		flag = !flag;
+		if(tops>= 200 || bottoms <=200){
+			clearInterval(timer);
+		}
+	},50)
+},5000)
+</script>
+</body>
+</html>

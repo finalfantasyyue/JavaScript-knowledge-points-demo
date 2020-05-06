@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>async</title>
+  <style>
+    .light {
+      width: 80px;
+      height: 80px;
+      color: white;
+      line-height: 80px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="light"></div>
+  <script>
+    /* 我们现在要实现一个红绿灯，把一个圆形 div 按照绿色 3 秒，黄色 1 秒，红色 2 秒循环改变背景色 */
+    let light = document.querySelector('.light')
+      /* light.style.cssText += ';background: green;'
+      function changeColor(){
+        setTimeout(() => {
+          light.style.cssText += ';background: yellow;'
+          setTimeout(() => {
+            light.style.cssText += ';background: red;'
+            setTimeout(() => {
+              light.style.cssText += ';background: green;'
+              changeColor()
+            }, 2000)
+          },1000)
+        }, 3000)
+      }
+      changeColor() */
+    async function timeout(color, ms) {
+      await new Promise((resolve) => {
+        light.style.cssText += `;background: ${color}`
+        setTimeout(function(){
+          resolve(color)
+        }, ms)
+      })
+      return ms
+    }
+    async function main() {
+      while(true) {
+        await timeout('green', 3000).then(ms => {
+        })
+        await timeout('yellow', 1000).then(ms => {
+          
+        })
+        await timeout('red', 2000).then(ms => {
+          
+        })
+      }
+    }
+    main()
+  </script>
+</body>
+</html>

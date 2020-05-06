@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>读取文件内容</title>
+</head>
+<body>
+  <input type='file' accept='text/plain' onchange='openFile(event)'><br>
+  <div id="output"></div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+var arr = ['xiaomi', '淘宝', '京东'], newArr = [];
+// $.getJSON('webSIte.txt',function(result){
+//   console.log(result)
+// })
+  var openFile = function(event) {
+      var input = event.target;
+      var reader = new FileReader();
+      reader.onload = function() {
+        console.log(reader.result)
+          if(reader.result) {
+            var data = reader.result;
+            for(var i=0;i<data.length;i++){
+              console.log(data[i])
+            }
+            // data.filter((item) => {
+            //   arr.forEach(list => {
+            //     if (item.name === list) {
+            //       newArr.push(item)
+            //     }
+            //   })
+            // })
+              //显示文件内容
+              $("#output").html(newArr);
+          }
+      };
+      reader.readAsText(input.files[0]);
+  };
+</script>
+</html>

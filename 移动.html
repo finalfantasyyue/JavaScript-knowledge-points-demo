@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>移动</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        #box1 {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        #box2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: #000;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://www.baidu.com" class="lianjie">百度</a>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <script>
+        var lianjie = document.querySelector('.lianjie');
+        var replaceUrl = lianjie.getAttribute('href');
+        var douyu = replaceUrl.replace('baidu', 'douyu');
+        lianjie.setAttribute('href', douyu)
+
+        function fn(a) {
+            console.log(a); //function a(){}
+            var a = 123;
+            console.log(a); //123
+            function a() {}
+            console.log(a) //123
+            console.log(b) //undefined
+            var b = function () {}
+            console.log(b) //function(){}
+            function d() {}
+            console.log(d) //function(){}
+        }
+        fn(1);
+
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        var body = document.getElementsByTagName('body')[0];
+        var drag = false,
+            box1L, box1T, offX, offY, disX, disY;
+
+        function EventBind() {
+            box1.onmousedown = function (e) {
+                drag = true;
+                var ev = e || window.event;
+                box1L = ev.clientX;
+                box1T = ev.clientY;
+                offX = box1.offsetLeft;
+                offY = box1.offsetTop;
+                disX = box1L - offX;
+                disY = box1T - offY;
+                console.log(box1L, box1T, offX, offY)
+                box1.onmousemove = function (e) {
+                    var ev = e || window.event;
+                    if (drag) {
+                        box1.style.left = ev.clientX - disX + 'px';
+                        box1.style.top = ev.clientY - disY + 'px';
+                    }
+                }
+            }
+            box1.onmouseup = function () {
+                box1.onmousemove = null;
+                box1.onmouseup = null;
+                drag = false;
+            }
+        }
+        EventBind();
+    </script>
+</body>
+
+</html>

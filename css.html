@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        var events = [],
+            i = 0;
+        //循环创建函数
+        for (; i < 10; i++) {
+            var j = i;
+            events[i] = (function (aa) {
+                console.log(aa);
+            }(i));
+        }
+    </script>
+    <style>
+        .block>div{
+            color:blue;
+        }
+        .block{
+            border:1px solid #ddd;
+        }
+        .table{
+            display:table;
+            border:1px solid #ddd;
+        }
+        .table-cells{
+            display:table-cell;
+            border:1px solid #ddd;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="block">display:block
+        <div>555</div><span>元素</span>
+    </div>
+    <div class="table">display:table</div>
+    <div class="table-cells">1111</div>
+    <div class="table-cells">222</div>
+    <div class="table-cells">333</div>
+</body>
+</html>

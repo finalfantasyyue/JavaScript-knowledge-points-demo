@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扫雷</title>
+	<style>
+		#box{
+			width: 200px;
+			height: 200px;
+			margin: 0 auto;
+			font-size: 0;
+			border-bottom: 1px solid green;
+			border-right: 1px solid green;
+		}
+		.block{
+			/* float: left; */
+			display: inline-block;
+			width:19px;
+			height:19px;
+			border-left:1px solid green;
+			border-top: 1px solid green;
+		}
+		.isLei{
+			color: red;
+			font-size: 12px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		var mineMin = 10,mineMap = [];
+		var box = document.createElement('div');
+		box.setAttribute('id','box');
+		var body = document.body || document.documentElement;
+		body.appendChild(box);
+
+		//取消鼠标右键
+		box.oncontextmenu = function(){
+			return false;
+		}
+		box.onmousedown = function(e){
+			var e = e || window.e;
+			if(e.which === 1){
+				clickLeft(e.target);
+			}else if(e.which === 3){
+				clickRight(e.target);
+			}
+		}
+		function init(){
+			var boxEle = document.getElementById('box');
+			for (var i = 0; i < 10; i++) {
+				for (var j = 0; j < 10; j++) {
+					var span = document.createElement('div');
+					span.classList.add('block');
+					span.setAttribute('id',i+'-'+j);
+					mineMap.push({mine:0});
+					boxEle.appendChild(span);
+				}
+			}
+			var block = document.getElementsByClassName('block');
+			while(mineMin){
+				var index = Math.floor(Math.random()*100);
+				if(mineMap[index].mine === 0){
+					mineMap[index].mine = 1;
+					block[index].classList.add('isLei');
+					mineMin --;
+				}
+
+			}
+		}
+		init();
+		function clickLeft(dom){
+			var isLei = document.getElementsByClassName('isLei');
+			function Lei(name){
+				for(var i=0;i<isLei.length;i++){
+					isLei[i].innerHTML = name;
+				}
+			}
+			//点中雷
+			if(dom && dom.classList.contains('isLei')){
+				Lei('雷');
+				setTimeout(function(){
+					alert('game over');
+					window.location.reload();
+				},800)
+				return;
+			}
+			// var posArr = dom.classList;
+			console.log(dom)
+			//不是雷
+
+		}
+		function clickRight(dom){
+
+		}
+	</script>
+</body>
+</html>

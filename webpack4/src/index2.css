@@ -1,0 +1,29 @@
+input {
+  background: gray;
+}
+.left {
+  float: left;
+}
+li {
+  list-style: none;
+}
+body {
+  background: gray;
+}
+body .colorred {
+  color: red;
+}
+body .newlist {
+  border-bottom: 1px dotted #ccc;
+  list-style: none;
+  width: 30%;
+  padding: 10px;
+}
+body .article-list-box img {
+  width: 392px;
+  height: 219px;
+}
+body .movie li {
+  text-align: center;
+  margin: 15px;
+}

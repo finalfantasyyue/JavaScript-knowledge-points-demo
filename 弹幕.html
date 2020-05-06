@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弹幕</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        input{
+            position: absolute;
+            width: 300px;
+            bottom: 50px;
+            margin-left: -150px;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            box-shadow: 0px 0px 3px 1px #f5f5f5;
+        }
+        .btn{
+            position: absolute;
+            bottom: 50px;
+            padding: 4px;
+            margin-left: 170px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            box-shadow: 0px 0px 3px 1px #f5f5f5;
+        }
+        .dm{
+            position: absolute;
+            right: -300px;
+            line-height:40px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text">
+    <button class="btn">提交</button>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var btn = document.querySelector('.btn');
+    var arr = ['这是一条弹幕', '这是另一条信息', '凑数用的']
+    var body = document.documentElement || document.body;
+    function init(arr){
+        for (var i = 0; i < arr.length; i++) {
+            var div = document.createElement('div');
+            div.classList.add('dm');
+            div.innerHTML = arr[i];
+            div.style.top = Math.random()*(body.clientHeight) + 'px';
+            div.style.color = randomColor();
+            document.body.appendChild(div);
+            move(div);
+        }
+    }
+    init(arr);
+    btn.onclick = function () {
+        arr = [];
+        var input = document.querySelector('input');
+        var inputVal = input.value;
+        arr.push(inputVal)
+        init(arr);
+        input.value = '';
+    }
+    //随机颜色
+    function randomColor() {
+        return `rgba(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.random()*0.5+0.3})`
+    }
+    //运动
+    function move(ele) {
+        $(ele).animate({
+            left: -300 + 'px'
+        }, 10000, function () {
+            $(ele).remove();
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,90 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>回弹</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+		.ele{
+			width:100px;
+			height:100px;
+			border-radius: 10px;
+			background: #e5e5e5;
+			position:absolute;
+			left: 50%;
+			top:50%;
+			margin-left: -50px;
+			margin-top:-50px;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="ele"></div>	
+	<script>
+		$(function(){
+			var count = 100;
+
+		})
+	</script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+				 
+ 
+.up {
+  	width:100px;
+	height:100px;
+	border-radius: 10px;
+	background: #e5e5e5;
+	position:absolute;
+	left: 50%;
+	top:50%;
+	margin-left: -50px;
+	margin-top:-50px;
+}
+ 
+.up{
+  animation:upAnimation 2s infinite; /*动画的名称*/
+  transform-origin: center bottom; /*设置动画旋转元素的基点为*/
+  cursor: pointer;
+}
+
+@keyframes step {
+  100% {
+    background-position: -45rem;
+  }
+}
+ 
+@keyframes upAnimation{
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+  transform: translate3d(0,0,0);
+  }
+  40%,
+  43%{
+  transform: translate3d(0,-50px,0);
+  }
+  70%{
+  transform: translate3d(0,-15px,0);
+  }
+  90%{
+  transform: translate3d(0,-4px,0);
+  }
+}
+
+	</style>
+</head>
+<body>
+	<div class="up animated"></div>
+</body>
+</html>

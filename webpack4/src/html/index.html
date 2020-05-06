@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=Edge">
+	<title>webpack4</title>
+</head>
+<body>
+	<div id="app">
+		<div class="wrapper">测试内容</div>
+	</div>
+	<input type="text">
+	<!-- <script src="./main.js"></script>
+	<script src=./main2.js></script> -->
+</body>
+<script>
+	(function(root){
+		/*function fn(arg1,...rest){
+			console.log(rest) //[2,3,5]
+		}
+		fn(1,2,3,5)*/
+		function fn(arg1,rest){
+			console.log(rest)
+		}
+		function restFn(func){
+			return function(){
+				console.log(func);
+				var len = func.length,
+					startIndex = len-1,
+					argRest = Array.prototype.slice.call(arguments,startIndex),
+					arr = []; 
+				for(var i=0;i<argRest.length;i++){
+					arr[i] = argRest[i]
+				}
+				return arr;
+			}
+		}
+		var _rest = restFn(fn)
+		console.log(_rest('aa','bb','cc','dd','ee'));
+
+	})(this)
+</script>
+</html>

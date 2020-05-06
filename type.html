@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>type</title>
+</head>
+<body>
+  <script>
+    function type(target) {
+      let obj = {
+        '[object Array]': '_array',
+        '[object Number]': '_number',
+        '[object String]': '_string',
+        '[object Boolen]': '_boolen',
+        '[object Object]': '_object'
+      } 
+      if (target === null) {
+        return null;
+      }
+      if (typeof target === 'object') {
+        let str = Object.prototype.toString.call(target)
+        return obj[str]
+      } else {
+        return typeof(target)
+      }
+    }
+    var arr = [111,2,3,,23,1,2,3,3,3,2,1,312,1,321,1233,21,0,0]
+    function unique(arr) {
+      let obj = {}, newArr = [],len = arr.length;
+      for (var i=0;i<len;i++) {
+        if (!obj[arr[i]]) {
+          obj[arr[i]] = true
+          newArr.push(arr[i])
+        }
+      }
+      return newArr
+    }
+    console.log(unique(arr))
+  </script>
+</body>
+</html>

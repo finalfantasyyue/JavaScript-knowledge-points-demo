@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	.box1{
+		border: 10px #bfc993 solid;
+	}
+	.box2{
+		width: 100px;
+		height: 100px;
+		background-color: rgb(224, 223, 182);
+		float: left;
+	}
+	/*加上下面就没事了*/
+	.clearfix:after{       
+		content:'';
+		clear:both;
+		display:block;
+	}
+	.clear{
+		clear:both;
+		padding-top:20px;
+	}
+	.parent{
+		display:flex;width:200px;height:200px;border:1px solid #ddd;background:black;align-items:center;justify-content:center;
+	}
+	.child{
+		width:100px;height:100px;background:red;
+	}
+	.box3{display:flex;width:200px;height:200px;background:yellow;margin:auto;}
+	.content3{width:100px;height:100px;background:pink;margin:auto;}
+	.padding{
+		width:100px;height:100px;
+		border:1px solid #f44;
+		background: #f44;
+		padding:10px;
+		/*box-sizing: border-box;*/
+	}
+</style>
+</head>
+<body>
+	<div class="box1">
+		<div class="box2"></div>
+	</div>
+	<div class="clear"></div>
+	<div class="box1 clearfix">
+		<div class="box2"></div>
+	</div>
+	<div class="clear"></div>
+	<!-- 未知宽高垂直居中 -->
+	<div class="parent">
+		<div class="child"></div>
+	</div>
+	<div class="box3">
+		<div class="content3"></div>
+	</div>
+
+	<div class="padding"></div>
+</body>
+<script>
+	var pad = document.getElementsByClassName('padding')[0];
+	console.log(pad.clientWidth)  //number   不包括边框 98
+	console.log(pad.offsetWidth);  //number 包括边框 100
+	console.log(pad.scrollWidth);
+	// pad.style.width = '200px';
+	console.log(typeof pad.style.width);  //string
+</script>
+</html>

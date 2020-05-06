@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>try--catch</title>
+</head>
+<body>
+  <div>minutes: <input type='text' value='0' /></div>
+  <div>seconds: <input type='text' value='0' /></div>
+  <script>
+    var inputs = document.querySelectorAll('input');
+    var seconds = 0, minutes = 0;
+    
+    var timer = setInterval(function(){
+      seconds++
+      seconds < 10 ? seconds = '0'+seconds : seconds = seconds
+      if (seconds > 20) {
+        minutes < 10 ? '0'+minutes++ : minutes++
+        seconds = 1
+        if (minutes === 2) {
+          clearInterval(timer)
+        }
+      }
+      inputs[1].value = seconds
+      inputs[0].value = minutes
+    },500)
+    /*
+    * try 里面代码报错，报错内容后面的代码不会执行，并把错误内容输出到catch里，但不会影响外面代码执行
+    * ReferenceError: 非法或不能识别的引用值--》既没有定义
+    * SyntaxError: 语法解析错误--》语法错误
+    * 
+    */
+    try{
+      console.log('a')
+      console.log(b)
+      console.log('c')
+      console.log(e)
+    } catch (e) {
+      // console.log(e.name + ': ' + e.message)
+      console.log(e)
+    }
+    console.log('d')
+
+    document.addEventListener('DOMContentLoaded', function(){
+      console.log('DOM fully loaded and parse')
+    })
+    for(var i = 0; i < 1000000000; i++) {
+      
+    }
+
+    /*
+    *人身险中，寿险原保险保费收入16136 亿，同比增长12.21%;健康险原保险保费收入4444亿，同比增长31.09%;
+    *健康险保费收入需要几年超过寿险保费收入？
+    */
+    var sx = 16136, jkx = 4444;
+    for (var i=1; i<500;i++) {
+      jkx += jkx*0.3109;
+      sx += sx*0.1221;
+      if (jkx > sx) {
+        console.log(i)
+        break
+      }
+    }
+  </script>
+</body>
+</html>

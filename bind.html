@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bind</title>
+</head>
+<body>
+	<button id="btn">click</button>
+	<script type="text/javascript">
+		var a = 1;
+		function show () {
+			return this.fn2()
+		}
+		var obj = {
+			a: 2,
+			dom: document.getElementById('btn'),
+			fn1: function () {
+				console.log(this.a)
+			},
+			fn2: function () {
+				var self = this;  //self 指向obj
+				this.dom.onclick = this.fn1.bind(self);
+			}
+		}
+		var newShow = show.bind(obj);
+		newShow();
+
+		function fn(a,b,c){
+			//var args = [].slice.call(arguments,1);
+			var args = Array.prototype.slice.call(arguments,1);
+			return args;
+		}
+		console.log(fn(2,3,4))
+
+		//实现bind
+		Function.prototype.newBind = function (target) {
+			var self = this;
+			var args = [].slice.call(arguments,1);
+			var f = function() {
+				var _args = [].slice.call(args,0);
+				return self.apply(target || window,args.concat(_args));
+			}
+			return f;
+		}
+		var b = 'bbb';
+		var obj2 = {
+			b: 222,
+			fn: function () {
+				console.log(this)
+			}
+		}
+		function fnb (a,b,c,d) {
+			console.log(this,a,b,c,d)
+		}
+		var ff = fnb.newBind(obj2,1,2,3);
+		ff(4);
+	</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hover效果</title>
+    <style>
+        body{
+            width: 100%;
+            height: 1000px;
+        }
+        .box {
+            width: 300px;
+            height: 50px;
+            background: #e5e5e5;
+            margin: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .box:after {
+            content: '';
+            width: 0;
+            height: 2px;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            background: red;
+            transition: all .8s;
+        }
+
+        .box:hover:after {
+            left: 0;
+            width: 100%;
+        }
+
+        .expand {
+            position: absolute;
+            width: 0px;
+            height: 200px;
+            background: yellowgreen;
+            margin: auto;
+            top: -250px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: all .8s;
+            opacity: 0;
+        }
+        span{
+            position: absolute;
+            display: block;
+            width: 100px;
+            height: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <div class="expand"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" id="data">
+    /*新年快乐！ 恭贺新禧！ 万事亨通！ 万事如意！
+    身体健康！ 工作顺利！ 爱情甜蜜！ 生活美满！
+    珠玉满堂！ 多寿多富！ 四通八达！ 福运齐至！
+    合家欢乐！ 出入平安！ 大吉大利！ 吉祥安泰！
+    心想事成！ 岁岁平安！ 年年升高！ 年年有余！
+    春风得意！ 马到成功！ 大展鸿图！ 吉祥如意！
+    财源广进！ 财源滚滚！ 招财进宝！ 恭喜发财！*/
+</script>
+<script>
+    var a_index = 0;
+    var arr = $('#data').html().replace('/*', '').replace('*/', '').replace(/\s+/g, '').split('！');
+    arr = arr.slice(0, arr.length - 1);
+    console.log(arr)
+    $('body').on('click', function (e) {
+        var span = $(`<span>${arr[a_index]}</span>`);
+        // if (arr[a_index] == '恭喜发财') {
+        //     a_index = 0;
+        // } else {
+        //     a_index = a_index + 1;
+        // }
+        a_index = (a_index + 1) % arr.length;
+        $(span).css({
+            left: e.clientX,
+            top: e.clientY,
+            color: '#f00'
+        })
+        $('body').append(span);
+        $(span).animate({
+            left: e.clientX,
+            top: e.clientY - 50
+        }, 800, function () {
+            $(this).remove();
+        })
+    })
+    var box = document.querySelector('.box');
+    var expand = document.querySelector('.expand');
+    box.onmouseover = function () {
+        expand.style.opacity = 1;
+        expand.style.width = '500px';
+    }
+    box.onmouseout = function () {
+        expand.style.opacity = 0;
+        expand.style.width = '0px';
+    }
+</script>
+
+</html>

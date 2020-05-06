@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul{
+		list-style:none;
+		font-size:0;
+		padding:0;
+	}
+	li{
+		display: inline-block;
+		width: 25%;
+		height: 40px;
+		line-height: 40px;
+		background: red;
+		color: #fff;
+		font-size: 16px;
+		text-align: center;
+		border-left: 1px solid yellow;
+		box-sizing: border-box;
+	}
+	li:first-child{
+		border:0;
+	}
+	.dpflex{
+		display: flex;
+		margin-top: 10px;
+		text-align: center;
+	}
+	.dpflex .flex{
+		flex: 1;
+		background: pink;
+		border-right: 1px solid blue;
+	}
+	.flex:last-child{
+		border-right:0;
+	}
+	#box{
+		position: relative;
+		width:200px;
+		height:200px;
+		border:1px solid #ddd;
+		background: red;
+		margin: 20px auto;
+	}
+	.box{
+		position: absolute;
+		left:0;right:0;top:0;bottom:0;
+		margin: auto;
+		width:50px;
+		height: 50px;
+		background: #eee;
+	}
+</style>
+</head>
+
+<body>
+	<!-- ul>li.item{aa-$}*4 -->
+	<ul>
+		<li class="item">aa-1</li>
+		<li class="item">aa-2</li>
+		<li class="item">aa-3</li>
+		<li class="item">aa-4</li>
+	</ul>
+	<div class="dpflex">
+		<span class="flex">bb-1</span>
+		<span class="flex">bb-2</span>
+		<span class="flex">bb-3</span>
+		<span class="flex">bb-4</span>
+	</div>
+	<div id="box">
+		<div class="box"></div>
+	</div>
+	<script type="text/javascript">
+		var clientx = document.getElementById('box');
+		console.log(clientx.offsetLeft)
+		clientx.onmousemove = function (ev) {
+			ev = window.event || event;
+			// alert(ev.clientX)
+		}
+
+		var arr = [1, 2, 32, 432, 432, 432, 42, 23, 4, 6]
+		//取最大值
+		console.log('es6')
+		console.log(Math.max(...arr))
+		console.log('es5')
+		console.log(Math.max.apply(this, arr))
+		//去重
+		console.log('es6数组去重')
+		console.log(Array.from(new Set(arr)))
+
+		var arr1 = [];
+		for (var i = 0, len = arr.length; i < len; i++) {
+			if (arr1.indexOf(arr[i]) == -1) {
+				arr1.push(arr[i])
+			}
+			// console.log(arr1)
+		}
+		console.log(arr1)
+		//排序
+		function arrSort(val1, val2) {
+			return val1 - val2;
+		}
+		console.log(arr.sort(arrSort))
+		var num = 0;
+		var bubbleSort = function (arr) {
+			var len = arr.length;
+			for (var i = 0; i < len; i++) {
+				for (var j = 0; j < len - 1 - i; j++) {
+					num++;
+					if (arr[j] > arr[j + 1]) { //相邻元素两两对比
+						var temp = arr[j + 1]; //元素交换
+						arr[j + 1] = arr[j];
+						arr[j] = temp;
+					}
+				}
+			}
+			return arr;
+		}
+
+		console.log(bubbleSort(arr))
+		console.log(num)
+		var arr2 = [1, 1, 2, 3, 4, 2, 1]
+		//数组中值的出现次数
+		function count(arr, value) {
+			var num = 0;
+			if (arr.indexOf(value) == -1) {
+				return;
+			}
+			for (var i = 0; i < arr.length; i++) {
+				if (arr[i] === value) {
+					num++;
+				}
+			}
+			return num;
+		}
+		console.log(count(arr2, 1))
+
+		var fn;
+
+		function foo() {
+			var a = 2;
+
+			function bar() {
+				console.log(a)
+			}
+			fn = bar;
+			return fn;
+		}
+
+		function baz() {
+			fn();
+		}
+		foo();
+		baz();
+		// baz();
+
+		function fun() {
+			console.log(aa) //22
+		}
+
+		function fun2() {
+			var aa = 33;
+			console.log(this)
+			fun();
+		}
+		var aa = 22;
+		fun2();
+
+		var promise1 = new Promise((resolve) => {
+			setTimeout(() => {
+				resolve('success')
+			}, 1000)
+		})
+		var promise2 = promise1.then(() => {
+			throw new Error('error')
+		})
+		console.log('promise1', promise1)
+		console.log('promise2', promise2)
+		setTimeout(() => {
+			console.log('promise1', promise1)
+			console.log('promise2', promise2)
+		}, 2000)
+	</script>
+</body>
+
+</html>

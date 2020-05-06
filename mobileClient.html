@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <meta name="keywords" content="test">
+    <meta name="description" content="test">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    border: 0;
+    tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ 
+body {
+    font-size: 0;
+    overflow: hidden;
+    background-color: #f2f2f2;
+}
+ 
+.vhidden {
+    visibility: hidden;
+}
+ 
+.flex-box {
+    display: flex;
+    display: -webkit-flex;
+}
+ 
+.vertical-center {
+    box-pack: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+ 
+.horizontal-center {
+    -webkit-box-align: center;
+    align-items: center;
+}
+ 
+input {
+    display: block;
+    height: 0.88rem;
+    font-size: 0.26rem;
+    border: none;
+    width: 100%;
+    text-align: center;
+}
+ 
+input:focus {
+    border: none;
+    outline: none;
+}
+ 
+header {
+    height: 1rem;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+}
+ 
+header div {
+    box-flex: 1;
+    -webkit-box-flex: 1;
+    font-size: 0.26rem;
+    width: 100%;
+}
+ /*使用过程遇到问题
+1、我在非body元素，添加这个属性，竟然没有效果。如果添加上overflow-y: scroll,就可以优雅的滚动起来了。
+2、当一个元素设置过position: absolute|relative，后再增加-webkit-overflow-scrolling: touch;属性后，会发现，滑动几次后就滚动区域会卡住，不能在滑动，这时给元素增加个z-index值就可以了。
+
+解决方法：
+
+给元素增加个z-index值
+
+webkit-overflow-scrolling: touch;
+position:absolute;
+z-index:1;*/
+main {
+    -webkit-overflow-scrolling: touch;
+    height: calc(100% - 2rem);
+    overflow-y: scroll;
+    -webkit-overflow-scrolling:touch;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+}
+ 
+ /*隐藏滚动条但可以滚动*/
+main::-webkit-scrollbar {
+    display: none;
+}
+ 
+main p {
+    padding: 0.2rem;
+    font-size: 0.26rem;
+    color: #333;
+}
+ 
+footer {
+    height: 1rem;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+}
+ 
+footer div {
+    height: 0.88rem;
+    font-size: 0.26rem;
+}
+ 
+footer.bottom-input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+}
+ 
+.test1 {
+    font-size: .26rem;
+    padding: 0.22rem;
+    text-align: center;
+    background-color: #fff;
+    margin: 0.1rem auto;
+}
+ 
+.test2 {
+    font-size: .26rem;
+    height: 0.9rem;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    box-pack: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background-color: #fff;
+    margin: 0.1rem auto;
+}
+#header{
+	transition:transform .3s;
+}
+.is-hide{
+	transform:translateY(-100%);
+}
+</style>
+ 
+<body class="vhidden">
+    <header class="flex-box" id="header">
+        <div class="flex-box vertical-center horizontal-center">导航栏一</div>
+        <div class="flex-box vertical-center horizontal-center">导航栏二</div>
+    </header>
+    <main id="main">
+        <div class="test1">
+            这是内容部分1
+        </div>
+        <div class="test2">
+            这是内容部分2
+        </div>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <input class="flex-box vertical-center horizontal-center" type="text" name="" id="Inputt" placeholder="上面输入框">
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+        <p>这是内容部分</p>
+    </main>
+    <footer class="flex-box vertical-center horizontal-center">
+        <div class="flex-box vertical-center horizontal-center" id="tt">底部按钮</div>
+    </footer>
+    <!-- <footer class="flex-box vertical-center horizontal-center bottom-input">
+        <input class="flex-box vertical-center horizontal-center" type="text" name="" id="Inputb" placeholder="底部输入框">
+    </footer> -->
+</body>
+<script>
+(function(designWidth, rem2px, fixedWidth) {
+    //容错
+    designWidth = designWidth || 750;//传入设计稿的宽度
+    rem2px = rem2px || 100;//rem to px 的关系
+    fixedWidth = fixedWidth || 0;//是否固定最大宽度,固定宽度
+ 
+    //如果没有确定就默认设计稿的宽度
+    //获取当前html文档
+    var docEl = document.documentElement || document.body;
+    //获取body
+    var body = document.querySelector("body");
+    //设置固定宽度的大小
+    if (!Number(fixedWidth)) {
+        //不存在固定值，或者固定值为0
+        body.style.maxWidth = designWidth / rem2px + 'rem';
+    } else {
+        body.style.maxWidth = fixedWidth / rem2px + 'rem';
+    }
+    body.style.margin = 'auto';
+    //这里不设置body的position，为了底部存在可以让positon:absolute的可以吸在键盘上
+    //屏幕的宽度
+    var tempWidth = window.screen.width;
+    var tempHeight = window.screen.height;
+    //最小的宽度，以这个宽度来渲染，可以保证旋转的时候字体大小不变 为什么不用文档的宽度， 因为浏览器或者默认的app有时候会占用导航栏，
+    //这个时候宽度和高度就会被裁剪一部分，但是这个时候屏幕的宽高是不会因为浏览器或者app的导航栏而被裁剪
+    var minWidth = tempWidth > tempHeight ? tempHeight : tempWidth;
+    //手机方向
+    var orientation = window.orientation;
+    //获取当前默认字体的大小，因为安卓可以设置默认字体的大小来进行计算
+    var tempDom = window.document.createElement('div');
+    tempDom.style.width = '1rem';
+    tempDom.style.display = "none";
+    var head = window.document.getElementsByTagName('head')[0];
+    head.appendChild(tempDom);
+    var defaultFontSize = parseFloat(window.getComputedStyle(tempDom, null).getPropertyValue('width'));
+    tempDom.remove();
+    //移动端固定输入框在底部会被键盘遮挡的解决方法
+
+    var element = document.getElementById("Inputt");
+	// element.scrollIntoViewIfNeeded(false);
+	element.scrollIntoView(false);
+	//scrollIntoView 可选参数是 true false，默认是true
+	//true 元素的顶端将和其所在滚动区的可视区域的顶端对齐。
+	//false 元素的底端将和其所在滚动区的可视区域的底端对齐。
+	
+    //设置字体的大小
+    window.onresize = function() {
+        //延时是因为屏幕旋转获取新的高度需要一定的时间去重新获取高度和宽度
+        setTimeout(function() {
+            if (typeof(orientation) == "undefined") {
+                //如果不支持orientation 那么就根据屏幕的宽高来判断
+                var newWidth = window.screen.width;
+                if (newWidth != tempWidth) {
+                    tempWidth = newWidth
+                    //如果屏幕的宽度值改变了
+                    ReSetFontSize();
+                }
+            } else {
+                if (orientation != window.orientation) {
+                    //设置最新的屏幕方向 为什么要延迟，因为文档去重新并且渲染高度是有一个时间段的
+                    orientation = window.orientation;
+                    ReSetFontSize();
+                }
+            }
+        }, 100);
+    };
+    function ReSetFontSize() {
+        //设置body的高度，body的高度不能直接设置成100%会导致重绘，同时为了防止fiex的bug(键盘弹出)
+        body.style.height = docEl.clientHeight + "px";
+        //设置字体大小
+        docEl.style.fontSize = minWidth / designWidth * rem2px / defaultFontSize * 100 + "%";
+    }
+    ReSetFontSize();
+    document.body.classList.remove('vhidden');
+})(750, 100, 750);
+
+	//监听#main区域滚动，隐藏显示header
+	$('#main').scroll(function(){
+        var scrollHide = $('#main').scrollTop();
+        if(scrollHide >= 200){
+        	$('#header').addClass('is-hide');
+        }else{
+        	$('#header').removeClass('is-hide');
+        }
+	})
+</script>
+ 
+</html>

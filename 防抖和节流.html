@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .content {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      color: sandybrown;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="content"></div>
+</body>
+<script>
+  let num = 1
+  let content = document.querySelector('.content')
+  // content.onmousemove = count
+  function count() {
+    content.innerHTML = num++
+  }
+/* 
+* 防抖： n秒内只执行一次函数，如果n秒内又触发了函数，则会重新计算函数
+* 节流： n秒内只执行一次
+ */
+// 节流
+// 时间戳
+function throttle(func, wait){
+  let time = 0;
+  return function() {
+    let now = Date.now()
+    let args = arguments
+    let context = this
+    if (now - time > wait) {
+      func.apply(context, args)
+      time = now
+    }
+  }
+}
+// 定时器
+function throttle2(func, wait) {
+  let time;
+  return function(){
+    let context = this
+    let args = arguments
+    if (!time){
+      time = setTimeout(function(){
+        time = null
+        func.apply(context, args)
+      }, wait)
+    }
+  }
+}
+// content.onmousemove = throttle2(count, 1000)
+// 防抖
+// 非立即执行,即触发后不会立即执行，而是等待wait后执行
+function debounce(func, wait){
+  let time;
+  return function() {
+    let context = this, args = arguments
+    if (time) clearTimeout(time)
+    time = setTimeout(function(){
+      func.apply(context, args)
+      time = null
+    }, wait)
+  }
+}
+// 立即执行
+function debounce2(func, wait){
+  let time;
+  return function(){
+    let context = this, args = arguments
+    if(time) clearTimeout(time)
+    if (!time) func.apply(context, args)
+    time = setTimeout(function(){
+      time = null
+    }, wait)
+  }
+}
+content.onmousemove = throttle(count, 1000)
+</script>
+</html>

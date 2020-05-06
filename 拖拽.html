@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+    <style>
+        *{
+            margin:0;padding:0;list-style: none;
+        }
+        .box{
+            width: 100%;
+            height: 100px;
+        }
+        .box1 {
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin-left: 20px;
+            background: #f44;
+        }
+        .box1 p{
+            width: 100%;
+            text-align:center;
+            color: #fff;
+        }
+        li span{
+            display: inline-block;
+            width: 100px;
+            padding: 5px;
+        }
+        .box2 {
+            width: 500px;
+            height: 500px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="box1" draggable="true">
+            <p>javascript</p>
+            <p>55元</p>
+        </div>
+        <div class="box1" draggable="true">
+            <p>java</p>
+            <p>60</p>
+        </div>
+        <div class="box1" draggable="true">
+            <p>php</p>
+            <p>50</p>
+        </div>
+        <div class="box1" draggable="true">
+            <p>android</p>
+            <p>55</p>
+        </div>
+    </div>
+    <!-- <div class="box1" draggable="true"></div> -->
+    <div class="box2"></div>
+    <input type="text">
+</body>
+<script>
+    var box1 = document.querySelectorAll('.box1');
+    var box2 = document.querySelector('.box2');
+    var input = document.querySelector('input');
+    var ul = document.createElement('ul');
+    var obj = {};
+    input.onkeydown = function (e) {
+        var num = e.keyCode;
+        console.log(String.fromCharCode(num))
+    }
+
+    function init() {
+        var len = box1.length;
+        for (var i = 0; i < len; i++) {
+            box1[i].ondragstart = function (ev) {
+                console.log(ev)
+                var op = this.querySelectorAll('p');
+                var title = op[0].innerHTML;
+                var money = op[1].innerHTML;
+                ev.dataTransfer.setData('title', title);
+                ev.dataTransfer.setData('money', money);
+            }
+        }
+    }
+    init();
+    //如果要使用ondrop事件,必须在ondropover设置默认阻止事件
+    box2.ondragover = function (ev) {
+        ev.preventDefault();
+    }
+    box2.ondrop = function (ev) {
+        var lis = box2.querySelectorAll('li');
+        var title = ev.dataTransfer.getData('title');
+        var money = ev.dataTransfer.getData('money');
+        if (!(obj[title])) {
+            var li = document.createElement('li');
+            var span = document.createElement('span');
+            span.innerHTML = 1;
+            li.appendChild(span);
+            var span = document.createElement('span');
+            span.innerHTML = title;
+            li.appendChild(span);
+            var span = document.createElement('span');
+            span.innerHTML = money;
+            li.appendChild(span);
+            ul.appendChild(li);
+            box2.appendChild(ul);
+            obj[title] = 1;
+        } else {
+            for (var i = 0; i < lis.length; i++) {
+                var span = lis[i].querySelectorAll('span');
+                if (span[1].innerHTML == title){
+                    span[0].innerHTML = parseInt(span[0].innerHTML)+1;
+                }
+            }
+        }
+
+    }
+    // //开始拖动
+    // box1.ondragstart = function (ev) {
+    //     ev.dataTransfer.setData('hello', 'world'); //兼容火狐，setData(key,value)两个参数都是字符串，随便传
+    //     this.style.background = 'blue';
+    // }
+    // //放开
+    // box1.ondragend = function () {
+    //     this.style.background = '#f44';
+    // }
+    // //拖到box2上
+    // box2.ondragenter = function () {
+    //     this.style.background = 'gold';
+    // }
+    // //离开box2
+    // box2.ondragleave = function () {
+    //     this.style.background = 'yellow';
+    // }
+    // //将box1放到box2上
+    // //如果要使用ondrop事件,必须在ondropover设置默认阻止事件
+    // box2.ondrop = function (ev) {
+    //     console.log(ev.dataTransfer.getData('hello')) //通过getData可以获取setData的设置的值   'world'
+    // }
+    // box2.ondragover = function (ev) {
+    //     ev.preventDefault();
+    // }
+</script>
+
+</html>

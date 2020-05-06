@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则</title>
+</head>
+<body>
+	<script type="text/javascript" id="cy">
+/*新年快乐！ 恭贺新禧！ 万事亨通！ 万事如意！
+    身体健康！ 工作顺利！ 爱情甜蜜！ 生活美满！
+    珠玉满堂！ 多寿多富！ 四通八达！ 福运齐至！
+    合家欢乐！ 出入平安！ 大吉大利！ 吉祥安泰！
+    心想事成！ 岁岁平安！ 年年升高！ 年年有余！
+    春风得意！ 马到成功！ 大展鸿图！ 吉祥如意！
+    财源广进！ 财源滚滚！ 招财进宝！ 恭喜发财！*/
+</script>
+<script>
+	var con = document.getElementById('cy').innerHTML
+	var reg = /(\/\*)|(\*\/)|\！/g
+	var reg2 = /\s+/g
+	console.log(con.replace(reg, '').replace(reg2, ' '))
+	var arr = con.replace(reg, '').replace(reg2, ' ').trim().split(' ')
+	console.log(arr)
+</script>
+</body>
+</html>

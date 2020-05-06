@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div id="divText"></div>
+    <input type="text" id='inputText'>
+  </div>
+  <script>
+      let div = document.getElementById('divText')
+      let input = document.getElementById('inputText')
+      let obj = {}
+      Object.defineProperty(obj, 'name', {
+        get: function(){
+          console.log('获取')
+        },
+        set: function(value) {
+          console.log('设置'+ value)
+          div.innerHTML = value
+          input.value = value
+        }
+      })
+      input.addEventListener('input', function(){
+        obj.name = input.value
+      },false)
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//style,currentStyle,getComputedStyle()
+		/*
+		*style:各大浏览器都兼容,能设置样式和获取样式,但是获取不了外部样式,如果写了行内没有的样式,返回的是空值
+		*currentStyle:该属性只兼容IE,不兼容火狐和谷歌
+		*getComputedStyle:该属性是兼容火狐谷歌,不兼容IE
+		*/
+		function getStyle(obj,attr){
+			if(obj.currentStyle){
+				return obj.currentStyle[attr];
+			}else{
+				return obj.getComputedStyle(obj,false)[attr];
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>click,tap</title>
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.0/jquery.mobile.min.js"></script> -->
+	<script src="jquery.mobile.gesture.js"></script>
+	<style>
+		.pc,.h5{
+			width:100px;
+			height:20px;
+			line-height: 20px;
+			padding:10px;margin:10px;
+			border-radius:5px;
+			text-align: center;
+			border:1px solid #ddd;
+		}
+	</style>
+</head>
+<body>
+	<div class="pc">pc</div>
+	<div class="h5">h5</div>
+</body>
+<script>
+	$(function(){
+		$('body').on('click','.pc',function(e){
+			alert('pc')
+			console.log('pc')
+		})
+		$('body').on('tap','.h5',function(e){
+			alert('h5')
+			console.log('h5');
+		})
+	})
+</script>
+</html>

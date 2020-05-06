@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>generator购买彩票</title>
+</head>
+<body>
+  <script>
+    let price = 100, buyPrice = 15;
+    function* stock(){
+      while(true) {
+        yield Math.random() * 100
+      }
+    }
+    let fun = stock()
+    while(price > buyPrice) {
+      price = fun.next().value
+      console.log(`run ${price}`)
+    }
+    console.log(`run end ${price}`)
+  </script>
+</body>
+</html>

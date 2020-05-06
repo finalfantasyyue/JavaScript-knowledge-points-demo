@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ddd;
+        }
+        #div2{
+            position:absolute;
+            top:100px;
+            left:101px;
+            width: 100px;
+            height: 100px;
+            margin-left:100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="向前">
+    <input type="button" value="向后">
+    <div id="div1">
+        <div id="div2"></div>
+    </div>
+</body>ßß
+<script>
+    var oDiv1 = document.querySelector('#div1');
+    var oDiv2 = document.querySelector('#div2');
+    var inputs = document.querySelectorAll('input');
+    console.log(inputs[0])
+    console.log(oDiv2.offsetLeft)
+    console.log(getComputedStyle(oDiv2).left) //获取style标签里样式带单位
+    console.log(getStyle(oDiv2,'left'))
+    //获取样式兼容方法
+    function getStyle(obj, attr) {
+        console.log(obj.currentStyle)
+        /*
+        *currentStyle  低版本浏览器 Ie获取元素属性
+        *getComputedStyle 高版本浏览器FF、opera、safari、chrome
+        */
+        return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr]
+    }
+</script>
+
+</html>

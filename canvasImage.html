@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 20px auto;
+      text-align: center;
+    }
+    #canvas1 {
+      width: 600px;
+      height: 500px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+    #canvas2 {
+      width: 600px;
+      height: 500px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+    .filter a{
+      margin:0 5px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas1"></canvas>
+  <canvas id="canvas2"></canvas>
+  <div class="filter">
+    <a href="javascript:filter()" id="filter">filter</button>
+    <a href="javascript:grey()">grey</button>
+    <a href="javascript:blackEffect()">blackEffect</button>
+    <a href="javascript:reverseEffect()">reverse effect</button>
+    <a href="javascript:blurEffect()">blur effect</button>
+  </div>
+
+  <script>
+    let canvas1 = document.getElementById('canvas1')
+    let canvas2 = document.getElementById('canvas2')
+
+    let ctx1 = canvas1.getContext('2d')
+    let ctx2 = canvas2.getContext('2d')
+
+    window.onload = function() {
+            
+      let image = new Image()
+      image.src = 'fj.png'
+      // image.crossOrigin = 'Anonymous'
+      //image.src = 'https://cn.bing.com/images/search?view=detailV2&ccid=QO6tIBdM&id=5009AF4C8527EFF742E12C609B850615557ED082&thid=OIP.QO6tIBdM8OpX0VAIKsMVJwHaEK&mediaurl=http%3a%2f%2fimg17.3lian.com%2fd%2ffile%2f201701%2f07%2f3e5c22072c1f672d479c17c2f01fae77.jpg&exph=1440&expw=2560&q=%e9%a3%8e%e6%99%af%e5%9b%be%e7%89%87&simid=607991201687408265&selectedIndex=0&ajaxhist=0'
+      image.onload = function() {
+        ctx1.drawImage(this, 0, 0, canvas1.width, canvas1.height)
+        console.log(canvas1.toDataURL())
+      }
+    }
+    function filter() {
+      let imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height)
+      let pixelData = imageData.data
+      let len = canvas2.width * canvas2.height;
+      for(let i = 0; i < len; i++) {
+        // pixelData[4*i+0] = 0
+        // pixelData[4*i+1] = 20
+        pixelData[4*i+2] = Math.floor(i / 5)
+        // pixelData[4*i+3] = i
+      }
+      ctx2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height)
+    }
+    function grey() {
+      let imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height)
+      let pixelData = imageData.data
+      
+      let len = canvas2.width * canvas2.height
+      for (let i = 0; i < len; i++) {
+        let r = pixelData[4*i+0]
+        let g = pixelData[4*i+1]
+        let b = pixelData[4*i+2]
+        /* r*0.3 b*0.59 v*0.11图像学家研究出最适合灰色的比率 */
+        let grey = r * 0.3 + g * 0.59 + b * 0.11
+        pixelData[4*i+0] = grey
+        pixelData[4*i+1] = grey
+        pixelData[4*i+2] = grey
+      }
+      ctx2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height)
+    }
+    /* 黑白滤镜 */
+    function blackEffect() {
+      let imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height)
+      let pixelData = imageData.data
+      let len = canvas2.width * canvas2.height
+      for (let i = 0; i < len; i++) {
+        let r = pixelData[4*i+0]
+        let g = pixelData[4*i+1]
+        let b = pixelData[4*i+2]
+        /* r*0.3 b*0.59 v*0.11图像学家研究出最适合灰色的比率 */
+        let grey = r * 0.3 + g * 0.59 + b * 0.11
+        let v = null
+        if (grey > 255 / 2) {
+          v = 255
+        } else {
+          v = 0
+        }
+        pixelData[4*i+0] = v
+        pixelData[4*i+1] = v
+        pixelData[4*i+2] = v
+      }
+      ctx2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height)
+    }
+    /* 反色滤镜  用255-r */
+    function reverseEffect() {
+      let imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height)
+      let pixelData = imageData.data
+      let len = canvas2.width * canvas2.height
+      for (let i = 0; i < len; i++) {
+        let r = pixelData[4*i+0]
+        let g = pixelData[4*i+1]
+        let b = pixelData[4*i+2]
+        /* r*0.3 b*0.59 v*0.11图像学家研究出最适合灰色的比率 */
+        // let grey = r * 0.3 + g * 0.59 + b * 0.11
+        pixelData[4*i+0] = 255 - r
+        pixelData[4*i+1] = 255 - g
+        pixelData[4*i+2] = 255 - b
+      }
+      ctx2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height)
+    }
+    /* 模糊滤镜 */
+    function blurEffect() {
+      let imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height)
+      let pixelData = imageData.data
+
+      let tmpImageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height)
+      let tmpPixelData = tmpImageData.data
+      // 模糊尺度
+      let blur = 1
+      let area = Math.pow(blur*2+1, 2)
+      for (let i = blur; i < canvas2.width - blur; i++) {
+        for (let j = blur; j < canvas2.height - blur; j++) {
+
+          let totalR = 0, totalG = 0, totalB = 0;
+          
+          for (let dx = -blur; dx <= blur; dx++) {
+            for (let dy = -blur; dy <= blur; dy++) {
+              let x = i + dx
+              let y = j + dy
+              let point = x * canvas2.width + y
+              totalR += tmpPixelData[4*point+0]
+              totalG += tmpPixelData[4*point+1]
+              totalB += tmpPixelData[4*point+2]
+            }
+          }
+          let p = i * canvas2.width + j
+          pixelData[4*p+0] = totalR / area
+          pixelData[4*p+1] = totalG / area
+          pixelData[4*p+2] = totalB / area
+        }
+      }
+      ctx2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height)
+    }
+  </script>
+</body>
+</html>

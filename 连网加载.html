@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>连网加载</title>
+    <style>
+        #isOnline{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #f44;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var divOnline = document.createElement('div');
+        var input = document.createElement('input');
+        input.setAttribute('type','button');
+        input.value = '刷新'
+        input.style.display = 'none';
+        divOnline.setAttribute('id','isOnline');
+        divOnline.innerHTML = '连网以后显示';
+        var body = document.body || document.documentElement;
+        body.appendChild(divOnline);
+        body.appendChild(input);
+        // var isOnline = document.getElementById('isOnline');
+        
+        if(navigator.onLine){
+            divOnline.style.display = 'block';
+        }else{
+            input.style.display = 'block';
+        }
+        input.onclick = function(){
+            if(navigator.onLine){
+                divOnline.style.display = 'block';
+                this.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

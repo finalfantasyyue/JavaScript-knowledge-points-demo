@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习</title>
+	<style>
+		ul {
+			width: 600px;
+		}
+		ul li {
+			list-style: none;
+			float: left;
+			margin:10px;
+		}
+		ul li:nth-child(1) div{
+			width:120px;height:100px;border:1px solid #ddd;
+		}
+		li:nth-child(2) div{
+			width:120px;height: 50px;border:1px solid red;
+		}
+		li:nth-child(3) div{
+			width: 120px;height: 70px;border:1px solid yellow;
+		}
+		li:nth-child(4) div{
+			width: 120px;height: 150px;border:1px solid pink;
+		}
+
+	</style>
+</head>
+<body>
+	<ul>
+		<li><div></div></li>
+		<li><div></div></li>
+		<li><div></div></li>
+		<li><div></div></li>
+	</ul>
+	<script>
+		var oli = document.getElementsByTagName('li');
+		var len = oli.length;
+		function createLi(con){
+			var index = getShortIndex();
+			var div = document.createElement('div');
+			div.style.height = Math.floor(Math.random()*200)+'px';
+			var lHeight = div.style.height;
+			// cssText '=' 会把原有的cssText清掉 所以采用+=
+			div.style.cssText += 'line-height: lHeight; width: 120px; border: 1px solid blue; text-align: center;'
+			// div.style.lineHeight = lHeight;
+			// div.style.width = '120px';
+			// div.style.border = '1px solid blue';
+			// div.style.textAlign = 'center'; 
+			div.innerHTML = con;
+			oli[index].appendChild(div);
+		}
+		function getShortIndex(){ //获取最低高度li的索引
+			var index = 0;
+			var cHeight = oli[index].clientHeight;
+			for (var i = 1; i < len; i++) {
+				if(oli[i].clientHeight < cHeight){
+					cHeight = oli[i].clientHeight;
+					index = i;
+				}
+			}
+			return index;
+		}
+		for (var i = 0; i < 50; i++) {
+			createLi(i);
+		}
+	</script>
+</body>
+</html>

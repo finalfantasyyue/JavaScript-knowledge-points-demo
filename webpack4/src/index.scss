@@ -1,0 +1,19 @@
+$bgColor: yellow;
+body{
+	// background:url('/img/bz.jpg') no-repeat;
+	div{
+		padding:10px;
+	}
+	#app{
+		display: flex;
+		width: 200px;
+		height: 200px;
+		border: 1px solid red;
+		.wrapper{
+			width: 100px;
+			height: 100px;
+			background: gray;
+			margin: auto;
+		}
+	}
+}

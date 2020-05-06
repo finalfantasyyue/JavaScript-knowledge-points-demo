@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>碰撞检测</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #f44;
+            margin: auto;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        .select {
+            position: absolute;
+            border: 1px solid #ddd;
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        var box = document.querySelector('.box');
+        var el, et, boxL, boxT, boxW, boxH;
+        boxL = box.offsetLeft;
+        boxT = box.offsetTop;
+        boxW = box.clientWidth;
+        boxH = box.clientHeight;
+        console.log(boxL, boxT, boxW, boxH)
+        document.onmousedown = function (e) {
+            var selectDiv = document.createElement('div');
+            selectDiv.classList.add('select');
+            var e = event || window.event;
+            el = e.clientX;
+            et = e.clientY;
+            document.body.appendChild(selectDiv);
+            document.onmousemove = function (e) {
+                var e = event || window.event;
+                var newL = e.clientX;
+                var newT = e.clientY;
+                var w = newL - el;
+                var h = newT - et;
+                // var selectDiv = document.querySelector('.select');
+                selectDiv.style.width = Math.abs(w) + 'px';
+                selectDiv.style.height = Math.abs(h) + 'px';
+                if (w > 0) {
+                    selectDiv.style.left = el + 'px';
+                } else {
+                    selectDiv.style.left = newL + 'px';
+                }
+                if (h > 0) {
+                    selectDiv.style.top = et + 'px';
+                } else {
+                    selectDiv.style.top = newT + 'px';
+                }
+                //判斷是否覆蓋box
+                if(pz(selectDiv,box)){
+                    box.style.background = 'green';
+                }else{
+                    box.style.background = 'yellow';
+                }
+            }
+        }
+        document.onmouseup = function (e) {
+            var e = event || window.event;
+            document.onmousemove = null;
+            document.onmoouseup = null;
+            var selectDiv = document.querySelector('.select');
+            selectDiv.remove();
+        }
+        //碰撞检测
+        function pz(obj1, obj2) {
+            var l1 = obj1.offsetLeft;
+            var r1 = obj1.offsetLeft + obj1.offsetWidth;
+            var t1 = obj1.offsetTop;
+            var b1 = obj1.offsetTop + obj1.offsetHeight;
+
+            var l2 = obj2.offsetLeft;
+            var r2 = obj2.offsetLeft + obj2.offsetWidth;
+            var t2 = obj2.offsetTop;
+            var b2 = obj2.offsetTop + obj2.offsetHeight;
+
+            if (r1 < l2 || l1 > r2 || b1 < t2 || t1 > b2) {
+                return false;   //没有碰撞
+            } else {
+                return true;   //碰撞到
+            }
+        }
+    </script>
+</body>
+
+</html>

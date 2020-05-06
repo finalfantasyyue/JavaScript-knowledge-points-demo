@@ -1,0 +1,17 @@
+[
+  { name: '淘宝', id: 1 },
+  { name: '京东', id: 2 },
+  { name: '拼多多', id: 3 },
+  { name: '亚马逊', id: 4 },
+  { name: '当当', id: 5 },
+  { name: '百度', id: 6 },
+  { name: 'google', id: 7 },
+  { name: 'bing', id: 8 },
+  { name: 'xiaomi', id: 9 },
+  { name: 'Alibaba', id: 10 },
+  { name: 'tengxun', id: 11 }，
+  { name: 'xiaomi', id: 12 },
+  { name: 'xiaomi', id: 13 },
+  { name: '淘宝', id: 14 },
+  { name: '京东', id: 15 }
+]
