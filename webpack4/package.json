@@ -28,7 +28,7 @@
     "image-webpack-loader": "^4.5.0",
     "imagemin-pngquant": "^6.0.0",
     "img-loader": "^3.0.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.4",
