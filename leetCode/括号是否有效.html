@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const str = '((({[]})))[]'
+    function isValid(str) {
+      let len;
+      do {
+        len = str.length
+        str = str.replace('()', '').replace('[]','').replace('{}','')
+      } while(len !== str.length)
+      return str.length === 0
+    }
+    // console.log(isValid(str))
+    function isValid2(str) {
+      // debugger
+      let arr = []
+      const obj = { ')': '(', '}': '{', ']': '[' } //
+      for (let i = 0; i < str.length; i++) {
+        if (!(str[i] in obj)) {
+          arr.push(str[i])
+        } else {
+          if (arr.length > 0) {
+            if (arr[arr.length-1] === obj[str[i]]){
+              arr.pop()
+            } else {
+              return false
+            }
+          } else {
+            return false
+          }
+        }
+      }
+      return arr.length === 0
+    }
+    console.log(isValid2(str))
+  </script>
+</body>
+</html>

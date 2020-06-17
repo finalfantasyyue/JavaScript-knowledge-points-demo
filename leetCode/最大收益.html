@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let arr = [4,2,8,4,1,0,9,8]
+    function profit(arr) {
+      let total = 0;
+      for (let i = 0; i < arr.length - 1; i++) {
+        if (arr[i] > arr[i+1]) {
+          continue;
+        } else {
+          total += arr[i+1] - arr[i]
+        }
+      }
+      return total
+    }
+    console.log(profit(arr))
+  </script>
+</body>
+</html>

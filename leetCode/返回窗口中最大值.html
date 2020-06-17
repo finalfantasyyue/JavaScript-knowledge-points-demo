@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>返回窗口中的最大值</title>
+</head>
+<body>
+  <script>
+    const arr = [1,4,2,12,99,7,300]
+    const len = 3
+    function max(arr, len) {
+      let tempArr = []
+      if (arr.length < len) return []
+      for (var i = 0; i <= arr.length - 3; i++) {
+        tempArr.push(Math.max(...(arr.slice(i,len+i))))
+        // tempArr.push(Math.max.apply(null, arr.slice(i, i + len)))
+      }
+      return tempArr
+    }
+    console.log(max(arr, len))
+    // 两数和等于指定值 x+y = 9
+    function add(arr) {
+      let x,y, sum = 9
+      if (arr.length < 2) return []
+      for (var i=0;i<arr.length;i++) {
+        if (arr.includes(sum - arr[i])) {
+          x = i
+          y = arr.indexOf(sum - arr[i])
+          break
+        }
+      }
+      return [x,y]
+    }
+    console.log(add(arr))
+  </script>
+</body>
+</html>

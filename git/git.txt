@@ -225,6 +225,7 @@ git init
 git add .
 git commit -m '注释'
 git remote add origin git@github.com:****.git  (git地址)
+//git remote add origin ssh://git@gitlab.ruyi.ai:10022/lip/learngit.git 将本地仓库关联gitlab仓库
 git pull origin master
 git push -u origin master
 

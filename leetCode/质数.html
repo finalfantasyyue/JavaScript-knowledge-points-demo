@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function zhishu(num) {
+        if (num <= 1) return false
+        let arr = []
+        for (let i = 2; i< num; i++) {
+            let tempArr = []
+            if (i % 2 === 0 && i !== 2) continue
+            for (let j = i; j > 0; j--) {
+              if (i % j == 0) { 
+                    tempArr.push(j)
+                }
+            }
+            if (tempArr[0] === i && tempArr[1] === 1) {
+                arr.push(i)
+            }
+        }
+        return arr;
+    }
+    console.time()
+    console.log(zhishu(10000))
+    console.timeEnd()
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 二叉搜索树 左树比根数小，右树比根数大
+    function treeSearch(root, min, max) {
+      if (root === null) return true;
+      if (min !== null && root.val <= min) return false;
+      if (max !== null && root.val >= max) return false;
+      return treeSearch(root.left, min, root.val) && treeSearch(root.right, root.val, max)
+    }
+    // 二叉树的最近公共主线
+    function latelyCommonAncestor(root, p, q) {
+      if (root === null || p === root || q === root) return root;
+      let left = latelyCommonAncestor(root.left, p, q)
+      let right = latelyCommonAncestor(root.right, p, q)
+      return left === null ? right : right === null ? left : root // 左子树为null，返回右子树；右子树为null,返回左子树；左右子树都不为null,返回根root
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+      数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+      输入：n = 3
+      输出：[
+            "((()))",
+            "(()())",
+            "(())()",
+            "()(())",
+            "()()()"
+          ]
+    */
+    /**
+    * @param {number} n
+    * @return {string[]}
+    */
+    var generateParenthesis = function(n) {
+      let arr = []
+      let gen = (s, left, right) => {
+        if (left === n && right === n) return arr.push(s)
+        if (left < n) gen(s+'(', left+1, right)
+        if (left > right) gen(s+')', left, right+1)
+      }
+      gen('', 0, 0)
+      return arr
+    };
+    console.log(generateParenthesis(3))
+
+    var removeElement = function(nums, val) {
+      debugger
+      // let len = nums.length;
+      // while (nums.includes(val)) {
+      //     let index = nums.indexOf(val)
+      //     nums.splice(index, 1)
+      // }
+      // return nums.length
+      let flag = nums.includes(val)
+      if (flag) {
+          let index = nums.indexOf(val)
+          nums.splice(index, 1)
+          removeElement(nums, val)
+      }
+      return nums
+    };
+    console.log(removeElement([3,3,2,3,4,5,12,3], 3))
+  </script>
+</body>
+</html>
